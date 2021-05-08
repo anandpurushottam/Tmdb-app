@@ -7,11 +7,13 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class ClientAuthInterceptor @Inject constructor(private val context: Context) : Interceptor {
+
     override fun intercept(chain: Interceptor.Chain): Response {
-        val requestBuilder = chain.request().newBuilder()
-        val url = chain.request().url().newBuilder()
-            .addQueryParameter("apiKey", context.getString(R.string.api_key)).build()
-        requestBuilder.url(url)
-        return chain.proceed(requestBuilder.build())
+        val url = chain.request().url()
+            .newBuilder()
+            .addQueryParameter("api_key", context.getString(R.string.api_key)).build()
+        val request = chain.request().newBuilder().url(url).build()
+        return chain.proceed(request)
+
     }
 }
