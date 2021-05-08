@@ -1,4 +1,4 @@
-package com.example.moviesapp.di
+package com.example.moviesapp.dagger
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +9,7 @@ import com.example.moviesapp.data.RemoteDataSource
 import com.example.moviesapp.data.api.MovieService
 import com.example.moviesapp.domain.FetchMovieUseCase
 import com.example.moviesapp.domain.MovieRepository
-import com.example.moviesapp.ui.list.MovieViewModel
+import com.example.moviesapp.ui.movie.MovieViewModel
 import dagger.Module
 import dagger.Provides
 

@@ -1,4 +1,4 @@
-package com.example.moviesapp.di
+package com.example.moviesapp.dagger
 
 import android.content.Context
 import com.example.moviesapp.data.api.ClientAuthInterceptor

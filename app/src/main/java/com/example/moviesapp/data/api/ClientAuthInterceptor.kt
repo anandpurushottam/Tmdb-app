@@ -1,6 +1,7 @@
 package com.example.moviesapp.data.api
 
 import android.content.Context
+import android.util.Log
 import com.example.moviesapp.R
 import okhttp3.Interceptor
 import okhttp3.Response

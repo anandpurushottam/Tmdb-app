@@ -5,5 +5,7 @@
     <color name="secondary_text">#f2f2f2</color>
     <color name="caption_text">#BABABA</color>
     <color name="background">#464646</color>
-    <color name="bg_tint">#80000000</color>
+    <color name="bg_tint">#30000000</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="grey">@android:color/darker_gray</color>
 </resources>

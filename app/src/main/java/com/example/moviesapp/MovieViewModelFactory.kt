@@ -3,7 +3,7 @@ package com.example.moviesapp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviesapp.domain.FetchMovieUseCase
-import com.example.moviesapp.ui.list.MovieViewModel
+import com.example.moviesapp.ui.movie.MovieViewModel
 import javax.inject.Inject
 
 class MovieViewModelFactory @Inject constructor(private val useCase: FetchMovieUseCase) : ViewModelProvider.Factory {

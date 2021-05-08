@@ -1,4 +1,4 @@
-package com.example.moviesapp.di
+package com.example.moviesapp.dagger
 
 import com.example.moviesapp.data.api.MovieService
 import com.google.gson.Gson
