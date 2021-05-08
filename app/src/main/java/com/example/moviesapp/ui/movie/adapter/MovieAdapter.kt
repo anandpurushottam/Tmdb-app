@@ -64,8 +64,14 @@ class MovieAdapter(private val list: ArrayList<Movie>, val listener: (Movie) -> 
             notifyItemRemoved(position)
         }
     }
+    fun removeFooterWhenError(){
+        removeLoadingFooter()
+    }
 
     fun addLoadingFooter() {
+        if (isLoadingAdded) {
+            return
+        }
         isLoadingAdded = true
         list.add(Movie())
         notifyItemInserted(list.size - 1);
