@@ -1,20 +1,21 @@
 package com.example.moviesapp.ui.list
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.MovieListFragmentBinding
+import com.example.moviesapp.di.inject
+import javax.inject.Inject
 
 class ListFragment : Fragment() {
 
     private lateinit var binding: MovieListFragmentBinding
-    private lateinit var viewModel: MovieViewModel
-
+    @Inject
+    lateinit var viewModel: MovieViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,9 +24,10 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        inject(this, requireActivity().viewModelStore, requireContext())
+        viewModel.loadNowPlaying()
     }
 
     companion object {
