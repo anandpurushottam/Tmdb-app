@@ -2,6 +2,8 @@
     <string name="app_name">MoviesApp</string>
     <string name="api_key">ad2d2c053db123818223e84cba3c42b1</string>
     <string name="generic_rating">%s/10</string>
+    <string name="error_message">Opps! Something went wrong</string>
+    <string name="retry">Retry</string>
 
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.moviesapp.util
 
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -21,3 +22,7 @@ fun ImageView.bindImageUrl(id: String?) {
     }
 }
 
+@BindingAdapter(value = ["visibleUntil"])
+fun View.visibleUntil(flag: Boolean?) {
+    this.visibility = if (flag == true) View.VISIBLE else View.GONE
+}

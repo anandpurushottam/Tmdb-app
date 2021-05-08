@@ -4,7 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="error"
+            type="java.lang.Boolean" />
+        <variable
+            name="loader"
+            type="java.lang.Boolean" />
     </data>
 
     <FrameLayout
@@ -21,6 +26,23 @@
             app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/movie_item" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"
+            android:indeterminateTintMode="src_in"
+            app:visibleUntil="@{loader}"
+            tools:vissibility="visible" />
+
+        <include
+            android:id="@+id/errorView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:visibility="visible"
+            layout="@layout/error_view"
+            app:visibleUntil="@{error}" />
 
     </FrameLayout>
 </layout>

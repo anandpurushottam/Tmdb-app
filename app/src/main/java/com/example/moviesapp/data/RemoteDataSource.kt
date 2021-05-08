@@ -9,20 +9,18 @@ import java.io.IOException
 
 class RemoteDataSource(private val apiService: MovieService) : IDataSource {
     override suspend fun loadNowPlaying(page: Int): Result<Movies> {
-        return safeApiCall(
-            {
-                val response = apiService.getNowPlaying(page)
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body != null) {
-                        return@safeApiCall Result.Success(body)
-                    }
+        return safeApiCall {
+            val response = apiService.getNowPlaying(page)
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    return@safeApiCall Result.Success(body)
                 }
-                return@safeApiCall Result.Error(
-                    IOException("Getting ${response.code()} ${response.message()}")
-                )
             }
-        )
+            return@safeApiCall Result.Error(
+                IOException("Getting ${response.code()} ${response.message()}")
+            )
+        }
 
     }
 

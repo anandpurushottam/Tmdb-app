@@ -1,30 +1,35 @@
 package com.example.moviesapp.ui.movie
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.GridLayoutManager
+import com.example.moviesapp.data.Result
 import com.example.moviesapp.data.model.Movie
+import com.example.moviesapp.data.model.Movies
 import com.example.moviesapp.domain.FetchMovieUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import com.example.moviesapp.data.Result
-import com.example.moviesapp.data.model.Movies
-import com.example.moviesapp.util.PaginationScrollListener
-import kotlinx.coroutines.Job
 
 class MovieViewModel @Inject constructor(private val useCase: FetchMovieUseCase) : ViewModel() {
 
-    val movies = MutableLiveData<List<Movie>>()
-    val progress = MutableLiveData<Boolean>()
-    val error = MutableLiveData<Boolean>()
+    private val movies = MutableLiveData<List<Movie>>()
+    private val error = MutableLiveData<Boolean>()
+    private val progress = MutableLiveData<Boolean>()
 
-    var loading = false
+    val hasError: LiveData<Boolean> = error
+    val showLoader: LiveData<Boolean> = progress
+    val result: LiveData<List<Movie>> = movies
+
+    var loadingNextPage = false
+        private set
     var currentPage = 0
+        private set
     var totalPage = 1
+        private set
+
 
     init {
         loadMovie()
@@ -35,11 +40,10 @@ class MovieViewModel @Inject constructor(private val useCase: FetchMovieUseCase)
     }
 
     private fun loadNowPlaying(page: Int) = viewModelScope.launch {
-        progress.value = true
+        progress.value = page == 1 //show progress only for first load
         error.value = false
-        loading = true
+        loadingNextPage = true
         val result: Result<Movies> = withContext(Dispatchers.IO) { useCase.loadNowPlaying(page) }
-        progress.value = false
         when (result) {
             is Result.Success -> handleSuccess(result.data)
             is Result.Error -> handleError()
@@ -47,16 +51,19 @@ class MovieViewModel @Inject constructor(private val useCase: FetchMovieUseCase)
     }
 
     private fun handleError() {
-        loading = false
+        loadingNextPage = false
         currentPage--
-        error.value=true
+        error.value = true
+        progress.value = false
+
     }
 
     private fun handleSuccess(data: Movies) {
         currentPage = data.page
         totalPage = data.total_pages
-        loading = false
-        movies.value=data.movies
+        loadingNextPage = false
+        movies.value = data.movies
+        progress.value = false
     }
 
 

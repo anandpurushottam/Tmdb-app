@@ -3,7 +3,6 @@ package com.example.moviesapp.domain
 import com.example.moviesapp.data.LocalDataSource
 import com.example.moviesapp.data.RemoteDataSource
 import com.example.moviesapp.data.Result
-import com.example.moviesapp.data.model.Movie
 import com.example.moviesapp.data.model.Movies
 
 class MovieRepository(

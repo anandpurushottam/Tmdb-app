@@ -18,12 +18,11 @@ import com.example.moviesapp.util.PaginationScrollListener
 import javax.inject.Inject
 
 class MovieListFragment : Fragment() {
-
+    @Inject
+    lateinit var vm: MovieViewModel
     private lateinit var binding: MovieListFragmentBinding
     private var movieAdapter: MovieAdapter = MovieAdapter(ArrayList()) { onItemClicked(it) }
 
-    @Inject
-    lateinit var vm: MovieViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.movie_list_fragment, container, false)
         return binding.root
@@ -40,6 +39,9 @@ class MovieListFragment : Fragment() {
             adapter = movieAdapter
             addOnScrollListener(provideScrollListener(layoutManager))
         }
+        binding.errorView.btnRetry.setOnClickListener {
+            vm.loadMovie()
+        }
         observeLiveData()
     }
 
@@ -48,17 +50,24 @@ class MovieListFragment : Fragment() {
             override fun loadMoreItems() {
                 movieAdapter.addLoadingFooter()
                 vm.loadMovie()
+                vm.totalPage
             }
             override val totalPageCount: Int
                 get() = vm.totalPage
             override val isLastPage: Boolean
                 get() = vm.currentPage == vm.totalPage
             override val isLoading: Boolean
-                get() = vm.loading
+                get() = vm.loadingNextPage
         }
 
     private fun observeLiveData() {
-        vm.movies.observe(viewLifecycleOwner, this::updateUi)
+        vm.result.observe(viewLifecycleOwner, this::updateUi)
+        vm.hasError.observe(this, {
+            binding.error = it
+        })
+        vm.showLoader.observe(this, {
+            binding.loader = it
+        })
     }
 
     private fun updateUi(movies: List<Movie>) {
