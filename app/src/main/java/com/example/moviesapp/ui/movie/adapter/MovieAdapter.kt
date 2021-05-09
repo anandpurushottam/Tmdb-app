@@ -64,7 +64,7 @@ class MovieAdapter(private val list: ArrayList<Movie>, val listener: (Movie) -> 
             notifyItemRemoved(position)
         }
     }
-    fun removeFooterWhenError(){
+    fun removeFooterOnError(){
         removeLoadingFooter()
     }
 
