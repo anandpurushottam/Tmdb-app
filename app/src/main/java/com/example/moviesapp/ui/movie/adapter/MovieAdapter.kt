@@ -42,7 +42,6 @@ class MovieAdapter(private val list: ArrayList<Movie>, val listener: (Movie) -> 
         val binding = holder.binding
         if (binding is MovieItemBinding) {
             binding.model = list[position]
-            binding.ivPoster.transitionName = "trans_image$position";
         }
         binding.executePendingBindings()
     }

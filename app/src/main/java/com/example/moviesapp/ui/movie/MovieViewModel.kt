@@ -48,16 +48,14 @@ class MovieViewModel @Inject constructor(private val useCase: FetchMovieUseCase)
         progress.value = page == 1 //show progress only for first load
         error.value = false
         loadingNextPage = true
-        val result: Result<Movies> = withContext(Dispatchers.IO) { useCase.loadNowPlaying(page) }
-        when (result) {
+        when (val result: Result<Movies> = withContext(Dispatchers.IO) { useCase.loadNowPlaying(page) }) {
             is Result.Success -> handleSuccess(result.data)
             is Result.Error -> handleError()
         }
     }
      fun loadMovieCast(movieId: Int) = viewModelScope.launch {
          movieCast.value= MovieCast(Collections.emptyList(),0)
-        val result: Result<MovieCast> = withContext(Dispatchers.IO) { useCase.loadMovieCast(movieId) }
-        when (result) {
+         when (val result: Result<MovieCast> = withContext(Dispatchers.IO) { useCase.loadMovieCast(movieId) }) {
             is Result.Success -> movieCast.value=result.data
             is Result.Error -> handleError()
         }
