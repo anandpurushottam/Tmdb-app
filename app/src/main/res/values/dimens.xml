@@ -7,6 +7,7 @@
     <dimen name="card_radius">8dp</dimen>
     <dimen name="font_size_29">29sp</dimen>
     <dimen name="size_64">64dp</dimen>
+    <dimen name="size_8">8dp</dimen>
     <dimen name="size_16">16dp</dimen>
     <dimen name="font_size_14">14sp</dimen>
     <dimen name="size_42">42dp</dimen>

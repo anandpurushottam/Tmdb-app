@@ -22,6 +22,7 @@ fun ImageView.bindImageUrl(id: String?) {
     }
 }
 
+
 @BindingAdapter(value = ["visibleUntil"])
 fun View.visibleUntil(flag: Boolean?) {
     this.visibility = if (flag == true) View.VISIBLE else View.GONE

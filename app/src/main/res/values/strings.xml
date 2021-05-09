@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">MoviesApp</string>
     <string name="api_key">ad2d2c053db123818223e84cba3c42b1</string>
-    <string name="generic_rating">Rated %s/10</string>
+    <string name="generic_rating">%s/10</string>
     <string name="error_message">Opps! Something went wrong</string>
     <string name="retry">Retry</string>
-    <string name="overview">Overview</string>
+    <string name="overview">Plot Summary</string>
+    <string name="cast">Cast</string>
+    <string name="toolbar_title">Movies</string>
 
 
 </resources>

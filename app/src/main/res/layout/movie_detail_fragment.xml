@@ -13,97 +13,194 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/black"
         android:fillViewport="true">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black"
-            android:orientation="vertical"
-            tools:context=".ui.detail.NewsDetailFragment">
+            android:animateLayoutChanges="true">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ivBackround"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="24dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_height"
+                    android:scaleType="center"
+                    app:setImageUrl="@{model.backdrop_path}"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_16"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    app:setImageUrl="@{model.backdrop_path}"
-                    tools:src="@color/cardview_dark_background" />
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="@dimen/size_42"
+                    android:layout_height="@dimen/size_42"
+                    android:layout_gravity="top"
+                    android:src="@drawable/ic_back_button" />
 
-                <LinearLayout
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_16"
-                    android:layout_marginEnd="@dimen/size_16"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Medium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{model.title}"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="@dimen/font_size_29"
-                        tools:targetApi="o"
-                        tools:text="Deadpool " />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/size_16"
-                        android:layout_marginBottom="@dimen/size_16"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/TextAppearance.AppCompat.Caption"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/size_12"
-                            android:text="@{@string/generic_rating(model.vote_average)}"
-                            android:textColor="@color/yellow"
-                            android:textSize="@dimen/font_size_20"
-                            tools:text="10/10" />
-
-                        <TextView
-                            style="@style/TextAppearance.AppCompat.Caption"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@{model.release_date}"
-                            android:textColor="@color/caption_text"
-                            android:textSize="@dimen/font_size_20"
-                            tools:text="2019-02-19" />
-                    </LinearLayout>
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Body2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/overview"
-                        android:layout_marginBottom="8dp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_16"/>
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Body1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{model.overview}"
-                        android:textColor="@color/caption_text"
-                        android:textSize="@dimen/font_size_14"
-                        tools:text="La nostra recensione completa di POCO X3 Pro, smartphone da 200 Euro con un processore di fascia alta." />
-                </LinearLayout>
+                    android:background="@color/black"
+                    android:gravity="center"
+                    android:text="@{model.title}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_29"
+                    tools:text="Deadpool" />
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:elevation="16dp"
-                android:id="@+id/bacButton"
-                android:layout_width="@dimen/size_42"
-                android:layout_height="@dimen/size_42"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ivPoster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_16"
+                android:background="@color/black"
+                android:rotation="0"
+                android:rotationX="0"
+                android:rotationY="0"
+                app:cardCornerRadius="@dimen/size_8"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackround"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackround">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    app:setImageUrl="@{model.poster_path}"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/size_16"
-                android:src="@drawable/ic_back_button" />
-        </FrameLayout>
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivPoster">
+
+                <TextView
+                    android:id="@+id/tvSummary"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/size_8"
+                    android:text="@string/overview"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_20"
+                    tools:text="Overview" />
+
+                <TextView
+                    android:id="@+id/tvOverview"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/size_16"
+                    android:text="@{model.overview}"
+                    android:textColor="@color/secondary_text"
+                    tools:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_16"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/size_16"
+                    android:text="@string/cast"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_20" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    tools:listitem="@layout/cast_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivPoster"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackround">
+
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/generic_rating(model.vote_average)}"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/font_size_20"
+                    app:drawableStartCompat="@android:drawable/btn_star_big_on"
+                    tools:text="10/10" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="2dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/size_8"
+                    android:layout_marginEnd="@dimen/size_8"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.release_date}"
+                    android:textColor="@color/white"
+                    tools:text="2015" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </layout>

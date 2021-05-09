@@ -25,6 +25,17 @@ class RemoteDataSource(private val apiService: MovieService) : IDataSource {
     }
 
     override suspend fun loadMovieCast(movieId: Int): Result<MovieCast> {
-        TODO("Not yet implemented")
+        return safeApiCall {
+            val response = apiService.getMovieCast(movieId)
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    return@safeApiCall Result.Success(body)
+                }
+            }
+            return@safeApiCall Result.Error(
+                IOException("Getting ${response.code()} ${response.message()}")
+            )
+        }
     }
 }

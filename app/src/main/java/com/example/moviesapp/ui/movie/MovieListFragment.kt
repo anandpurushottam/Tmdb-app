@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,6 +14,7 @@ import com.example.moviesapp.dagger.inject
 import com.example.moviesapp.data.model.Movie
 import com.example.moviesapp.databinding.MovieListFragmentBinding
 import com.example.moviesapp.ui.MainActivity
+import com.example.moviesapp.ui.detail.DetailFragment
 import com.example.moviesapp.ui.movie.adapter.MovieAdapter
 import com.example.moviesapp.util.PaginationScrollListener
 import com.google.android.material.snackbar.Snackbar

@@ -7,15 +7,14 @@
 
         <variable
             name="model"
-            type="com.example.moviesapp.data.model.Movie" />
+            type="com.example.moviesapp.data.model.Cast" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:clipToPadding="false"
         android:foreground="?selectableItemBackgroundBorderless"
-        android:minHeight="@dimen/card_height"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
@@ -26,7 +25,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:tint="@color/bg_tint"
-            app:setImageUrl="@{model.backdrop_path}"
+            app:setImageUrl="@{model.profile_path}"
             tools:src="@color/cardview_dark_background" />
 
         <LinearLayout
@@ -42,25 +41,19 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{model.title}"
+                android:text="@{model.name}"
                 android:textColor="@color/secondary_text"
-                android:textSize="@dimen/font_size_20"
                 tools:targetApi="o"
                 tools:text="Deadpool " />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{@string/generic_rating(model.vote_average)}"
-                android:textColor="@color/yellow"
-                tools:text="8/10" />
+
             <TextView
                 style="@style/TextAppearance.AppCompat.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{model.release_date}"
+                android:text="@{model.character}"
                 android:textColor="@color/caption_text"
-                tools:text="2019-02-19" />
+                tools:text="John" />
 
         </LinearLayout>
 
