@@ -7,6 +7,7 @@ import com.example.moviesapp.MovieViewModelFactory
 import com.example.moviesapp.data.LocalDataSource
 import com.example.moviesapp.data.RemoteDataSource
 import com.example.moviesapp.data.api.MovieService
+import com.example.moviesapp.data.database.MovieDatabase
 import com.example.moviesapp.domain.FetchMovieUseCase
 import com.example.moviesapp.domain.MovieRepository
 import com.example.moviesapp.ui.movie.MovieViewModel
@@ -35,7 +36,7 @@ class MovieModule(private val viewModelStore: ViewModelStore, private val contex
     fun provideRemoteDataSource(service: MovieService): RemoteDataSource = RemoteDataSource(service)
 
     @Provides
-    fun provideLocalDataSource(): LocalDataSource = LocalDataSource()
+    fun provideLocalDataSource(db:MovieDatabase): LocalDataSource = LocalDataSource(db)
 
     @Provides
     fun provideContext(): Context = context

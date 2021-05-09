@@ -8,6 +8,9 @@
         <variable
             name="model"
             type="com.example.moviesapp.data.model.Movie" />
+        <variable
+            name="showCast"
+            type="java.lang.Boolean" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -135,6 +138,7 @@
 
 
             <LinearLayout
+                app:visibleUntil="@{showCast}"
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

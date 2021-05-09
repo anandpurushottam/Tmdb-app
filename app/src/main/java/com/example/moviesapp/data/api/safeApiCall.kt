@@ -2,7 +2,7 @@ package com.example.moviesapp.data.api
 import java.io.IOException
 import com.example.moviesapp.data.Result
 
-suspend fun <T : Any> safeApiCall(call: suspend () -> Result<T>): Result<T> {
+suspend fun <T : Any> safeCall(call: suspend () -> Result<T>): Result<T> {
     return try {
         call()
     } catch (e: Exception) {

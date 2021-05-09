@@ -64,9 +64,10 @@ class DetailFragment : Fragment() {
     }
 
     private fun updateUi(it: List<Cast>) {
-        val newsAdapter = CastAdapter(it)
+        val castAdapter = CastAdapter(it)
+        binding.showCast=it.isNotEmpty()
         binding.recyclerview.apply {
-            adapter = newsAdapter
+            adapter = castAdapter
         }
     }
 

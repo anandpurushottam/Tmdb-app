@@ -1,23 +1,22 @@
 package com.example.moviesapp.data
 
 import com.example.moviesapp.data.api.MovieService
-import com.example.moviesapp.data.api.safeApiCall
-import com.example.moviesapp.data.model.Movie
+import com.example.moviesapp.data.api.safeCall
 import com.example.moviesapp.data.model.MovieCast
 import com.example.moviesapp.data.model.Movies
 import java.io.IOException
 
 class RemoteDataSource(private val apiService: MovieService) : IDataSource {
     override suspend fun loadNowPlaying(page: Int): Result<Movies> {
-        return safeApiCall {
+        return safeCall {
             val response = apiService.getNowPlaying(page)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    return@safeApiCall Result.Success(body)
+                    return@safeCall Result.Success(body)
                 }
             }
-            return@safeApiCall Result.Error(
+            return@safeCall Result.Error(
                 IOException("Getting ${response.code()} ${response.message()}")
             )
         }
@@ -25,15 +24,15 @@ class RemoteDataSource(private val apiService: MovieService) : IDataSource {
     }
 
     override suspend fun loadMovieCast(movieId: Int): Result<MovieCast> {
-        return safeApiCall {
+        return safeCall {
             val response = apiService.getMovieCast(movieId)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    return@safeApiCall Result.Success(body)
+                    return@safeCall Result.Success(body)
                 }
             }
-            return@safeApiCall Result.Error(
+            return@safeCall Result.Error(
                 IOException("Getting ${response.code()} ${response.message()}")
             )
         }

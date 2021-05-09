@@ -1,6 +1,10 @@
 package com.example.moviesapp.data.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.moviesapp.data.database.Converter
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -14,19 +18,22 @@ data class Movies(
     @SerializedName("total_results")
     val total_results: Int
 )
-
+@Entity
 @Parcelize
 data class Movie(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("backdrop_path")
-    val backdrop_path: String = "",
+    @TypeConverters(Converter::class)
+    val backdrop_path: String? = "",
     @SerializedName("id")
+    @PrimaryKey
     val id: Int = 0,
     @SerializedName("overview")
     val overview: String = "",
     @SerializedName("poster_path")
-    val poster_path: String = "",
+    @TypeConverters(Converter::class)
+    val poster_path: String? = "",
     @SerializedName("release_date")
     val release_date: String = "",
     @SerializedName("title")

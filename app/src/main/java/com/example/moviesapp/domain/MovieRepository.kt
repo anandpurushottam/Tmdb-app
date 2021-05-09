@@ -1,6 +1,5 @@
 package com.example.moviesapp.domain
 
-import android.util.Log
 import com.example.moviesapp.data.LocalDataSource
 import com.example.moviesapp.data.RemoteDataSource
 import com.example.moviesapp.data.Result
@@ -13,16 +12,29 @@ class MovieRepository(
 ) {
     suspend fun loadNowPlaying(page: Int): Result<Movies> {
         return when (val result = remoteDataSource.loadNowPlaying(page)) {
-            is Result.Success -> result
-            is Result.Error -> result
-        }
-    }
-    suspend fun loadMovieCast(movieId: Int): Result<MovieCast> {
-        return when (val result = remoteDataSource.loadMovieCast(movieId)) {
-            is Result.Success -> result
-            is Result.Error -> {
+            is Result.Success -> {
+                if (page == 1) {
+                    //remove all on first load
+                    localDataSource.removeAll()
+                }
+                localDataSource.insertAll(result.data.movies)
                 result
+            }
+            is Result.Error -> {
+                //page ==1 return from local data source
+                if (page != 1) {
+                    return Result.Error(result.exception)
+                }
+                when (val offlineResult = localDataSource.loadNowPlaying()) {
+                    is Result.Success -> {
+                        Result.Success(Movies(1, offlineResult.data, 1, 1))
+                    }
+                    is Result.Error -> Result.Error(offlineResult.exception)
+                }
             }
         }
     }
+
+    suspend fun loadMovieCast(movieId: Int): Result<MovieCast> =
+        remoteDataSource.loadMovieCast(movieId)
 }
